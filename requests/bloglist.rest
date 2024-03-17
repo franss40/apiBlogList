@@ -20,3 +20,14 @@ Content-Type: application/json
   "url": "https://github.com/",
   "likes": 10
 }
+### Nuevo registro
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "full stack open",
+  "author": "Universidad de Helsinki",
+  "url": "https://fullstackopen.com/es/",
+  "likes": 30
+}
+
