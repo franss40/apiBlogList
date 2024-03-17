@@ -30,4 +30,23 @@ Content-Type: application/json
   "url": "https://fullstackopen.com/es/",
   "likes": 30
 }
+### Nuevo registro
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
 
+{
+  "title": "Programación",
+  "author": "martin fowleer",
+  "url": "https://martinfowler.com/",
+  "likes": 24
+}
+### Nuevo registro
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "Programación Joan Leon",
+  "author": "Joan Leon",
+  "url": "https://joanleon.dev/",
+  "likes": 5
+}
