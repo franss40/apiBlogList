@@ -1,7 +1,8 @@
+const { PORT } = require("./utils/config")
 const express = require("express")
 const app = express()
 const cors = require("cors")
-const Blog = require('./models/blog')
+const Blog = require("./models/blog")
 
 app.use(cors())
 app.use(express.json())
@@ -20,8 +21,7 @@ app.post("/api/blogs", (request, response) => {
   })
 })
 
-// eslint-disable-next-line no-undef
-const PORT = process.env.PORT || 3003
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+const PORT_LISTEN = PORT || 3003
+app.listen(PORT_LISTEN, () => {
+  console.log(`Server running on port ${PORT_LISTEN}`)
 })
