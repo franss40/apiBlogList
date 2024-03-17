@@ -1,0 +1,22 @@
+### Recuperar todas los blogs
+GET http://localhost:3003/api/blogs
+### Añadir un blog
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "MongoDB Atlas",
+  "author": "MongoDb",
+  "url": "https://www.mongodb.com/atlas",
+  "likes": 7
+}
+### Nuevo registro
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "GitHub",
+  "author": "Github",
+  "url": "https://github.com/",
+  "likes": 10
+}
