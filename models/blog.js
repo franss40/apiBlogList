@@ -1,4 +1,6 @@
 require("dotenv").config()
+const logger = require('./../utils/loggers')
+
 // eslint-disable-next-line no-undef
 const mongoUrl = process.env.MONGODB_URI
 
@@ -23,9 +25,9 @@ const Blog = mongoose.model("Blog", blogSchema)
 mongoose.set("strictQuery", false)
 mongoose
   .connect(mongoUrl)
-  .then(() => console.log("Conexión exitosa a la base de datos"))
+  .then(() => logger.info("Conexión exitosa a la base de datos"))
   .catch((error) =>
-    console.error("Error al conectar a la base de datos:", error)
+    logger.error("Error al conectar a la base de datos:", error)
   )
 
 module.exports = Blog
