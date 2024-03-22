@@ -112,3 +112,49 @@ describe('favorite blog', () => {
     expect(result).toEqual({})
   })
 })
+
+describe('most blogs (author and blogs number)', () => {
+  test("when list has only one blog, equals the blog", () => {
+    const result = listHelper.mostBlogs(listWithOneBlog)
+    expect(result).toEqual({
+      author: "Edsger W. Dijkstra",
+      blogs: 1
+    })
+  })
+
+  test("most blogs", () => {
+    const result = listHelper.mostBlogs(listBlogs)
+    expect(result).toEqual({
+      author: "Robert C. Martin",
+      blogs: 3
+    })
+  })
+
+  test("most blogs for an empty blog list", () => {
+    const result = listHelper.mostBlogs(emptyblogs)
+    expect(result).toEqual({})
+  })
+})
+
+describe('most likes in blogs', () => {
+  test("when list has only one blog", () => {
+    const result = listHelper.mostLikes(listWithOneBlog)
+    expect(result).toEqual({
+      author: "Edsger W. Dijkstra",
+      likes: 5
+    })
+  })
+
+  test("with list blogs", () => {
+    const result = listHelper.mostLikes(listBlogs)
+    expect(result).toEqual({
+      author: "Edsger W. Dijkstra",
+      likes: 12,
+    })
+  })
+
+  test("with empty blog list", () => {
+    const result = listHelper.mostLikes(emptyblogs)
+    expect(result).toEqual({})
+  })
+})
