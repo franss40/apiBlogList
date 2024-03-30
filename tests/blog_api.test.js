@@ -70,6 +70,31 @@ test("if 'likes' does not exist, it shall have a default value of 0", async() =>
   expect(contents).toContain(0)
 })
 
+test("if 'title' does not exist, return 400 Bad Request", async() => {
+  const newBlog = {
+    title: "",
+    author: "someone",
+    url: "www.mongodb.com",
+  }
+
+  await api
+    .post("/api/blogs")
+    .send(newBlog)
+    .expect(400)
+})
+
+test("if 'url' does not exist, return 400 Bad Request", async () => {
+  const newBlog = {
+    title: "mongodb",
+    author: "someone",
+  }
+
+  await api
+    .post("/api/blogs")
+    .send(newBlog)
+    .expect(400)
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })

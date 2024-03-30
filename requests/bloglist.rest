@@ -50,3 +50,13 @@ Content-Type: application/json
   "url": "https://joanleon.dev/",
   "likes": 5
 }
+
+### Nuevo registro
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "author": "Joan Leon",
+  "url": "https://joanleon.dev/",
+  "likes": 5
+}

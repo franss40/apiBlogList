@@ -11,7 +11,13 @@ router.get("/", async(request, response) => {
 router.post("/", async(request, response) => {
   let newBody = {...request.body}
   if (request.body.likes === undefined) {
-    newBody = { ...request.body, likes: 0 }
+    newBody = { ...newBody, likes: 0 }
+  }
+  if (newBody.title === undefined || newBody.title === '') {
+    return response.status(400).end()
+  }
+  if (newBody.url === undefined || newBody.url === "") {
+    return response.status(400).end()
   }
   const newBlog = new Blog(newBody)
 
