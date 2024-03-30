@@ -8,12 +8,11 @@ router.get("/", async(request, response) => {
   return response.json(blog)
 })
 
-router.post("/", (request, response) => {
-  const blog = new Blog(request.body)
+router.post("/", async(request, response) => {
+  const newBlog = new Blog(request.body)
 
-  blog.save().then((result) => {
-    response.status(201).json(result)
-  })
+  const blog = await newBlog.save()
+  return response.status(201).json(blog)
 })
 
 module.exports = router

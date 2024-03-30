@@ -31,6 +31,26 @@ test("blogs has a property named id", async () => {
   }
 })
 
+test('a valid blog can be added', async () => {
+  const newBlog = {
+    title: "github",
+    author: "Chris Wanstrath",
+    url: "https://github.com/",
+    likes: 50,
+  }
+
+  await api
+    .post("/api/blogs")
+    .send(newBlog)
+    .expect(201)
+    .expect("Content-Type", /application\/json/)
+
+  const response = await api.get('/api/blogs')
+  expect(response.body).toHaveLength(initialBlog.length + 1)
+  const contents = response.body.map(r => r.title)
+  expect(contents).toContain('github')
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
