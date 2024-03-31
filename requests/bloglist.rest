@@ -60,3 +60,15 @@ Content-Type: application/json
   "url": "https://joanleon.dev/",
   "likes": 5
 }
+
+### Recuperar un blog existente
+GET http://localhost:3003/api/blogs/65f6b518adb1f83ee8cbc016
+
+### Recuperar un blog con una id erronea
+GET http://localhost:3003/api/blogs/a6
+
+### Recuperar un blog con una id no existente
+GET http://localhost:3003/api/blogs/55f6b518adb1f83ee8cbc016
+
+### borrar un blog con una id
+DELETE  http://localhost:3003/api/blogs/6609b6fff6f2c394a14e877e

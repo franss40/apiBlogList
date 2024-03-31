@@ -25,4 +25,20 @@ router.post("/", async(request, response) => {
   return response.status(201).json(blog)
 })
 
+router.get("/:id", async (request, response) => {
+  const blog = await Blog.findById(request.params.id)
+  if (!blog) {
+    return response.status(404).end()
+  }
+  return response.json(blog)
+})
+
+router.delete("/:id", async (request, response) => {
+  const blog = await Blog.findByIdAndDelete(request.params.id)
+  if (!blog) {
+    return response.status(404).end()
+  }
+  return response.status(204).end()
+})
+
 module.exports = router
