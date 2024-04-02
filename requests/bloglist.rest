@@ -72,3 +72,14 @@ GET http://localhost:3003/api/blogs/55f6b518adb1f83ee8cbc016
 
 ### borrar un blog con una id
 DELETE  http://localhost:3003/api/blogs/6609b6fff6f2c394a14e877e
+
+### actualizar registro
+PUT  http://localhost:3003/api/blogs/65f6b518adb1f83ee8cbc016
+Content-Type: application/json
+
+{
+  "title": "Programación Joan Leon",
+  "author": "Joan Leon",
+  "url": "https://joanleon.dev/",
+  "likes": 5
+}

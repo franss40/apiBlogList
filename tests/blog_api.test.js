@@ -155,6 +155,29 @@ describe("deletion of a blog", () => {
   })
 })
 
+describe('update of a blog', () => {
+  test.only('update a blog with id valid', async () => {
+    const allBlogs = await api.get("/api/blogs")
+    const blogToUpdate = allBlogs.body[0]
+
+    const newBlog = {...blogToUpdate, likes: blogToUpdate.likes + 1}
+    
+    const blogUpdate = await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send(blogToUpdate)
+      .expect(200)
+      .expect("Content-Type", /application\/json/)
+
+    console.log(newBlog, newBlog.likes)
+
+    expect(blogUpdate.body.likes).toBe(newBlog.likes)
+    const allBlogsAfter = await api.get("/api/blogs")
+
+    expect(allBlogs.body.length).toBe(allBlogsAfter.body.length)
+    expect(allBlogsAfter.body[0].likes).toBe(allBlogs.body[0].likes + 1)
+  })
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
