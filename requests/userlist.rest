@@ -1,0 +1,20 @@
+### Recuperar todas los users
+GET http://localhost:3003/api/users
+### Añadir un user
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "hellas",
+  "name": "Arto Hellas",
+  "password": "hellas"
+}
+### Añadir otro user
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "mluukkai",
+  "name": "Matti Luukkainen",
+  "password": "matti"
+}
