@@ -51,7 +51,7 @@ Content-Type: application/json
   "likes": 5
 }
 
-### Nuevo registro
+### error Nuevo registro, name es requerido
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
 

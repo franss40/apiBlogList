@@ -156,7 +156,7 @@ describe("deletion of a blog", () => {
 })
 
 describe('update of a blog', () => {
-  test.only('update a blog with id valid', async () => {
+  test('update a blog with id valid', async () => {
     const allBlogs = await api.get("/api/blogs")
     const blogToUpdate = allBlogs.body[0]
 
@@ -167,8 +167,6 @@ describe('update of a blog', () => {
       .send(blogToUpdate)
       .expect(200)
       .expect("Content-Type", /application\/json/)
-
-    console.log(newBlog, newBlog.likes)
 
     expect(blogUpdate.body.likes).toBe(newBlog.likes)
     const allBlogsAfter = await api.get("/api/blogs")

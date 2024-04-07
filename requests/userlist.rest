@@ -18,3 +18,47 @@ Content-Type: application/json
   "name": "Matti Luukkainen",
   "password": "matti"
 }
+### Añadir otro user
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "matt",
+  "name": "Matti Luukkainen",
+  "password": "matt"
+}
+### Error al añadir otro user, min username 3
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "ml",
+  "name": "Matti Luukkainen",
+  "password": "matti"
+}
+### Error al añadir otro user, min password 3
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "matt",
+  "name": "Matti Luukkainen",
+  "password": "ma"
+}
+### Error al añadir otro user, name missing
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "mlw",
+  "password": "maw"
+}
+### Error al añadir otro user con username equal
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "matt",
+  "name": "Matti Luukkainen",
+  "password": "matt"
+}
