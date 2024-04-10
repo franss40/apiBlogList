@@ -1,10 +1,11 @@
 const express = require("express")
 const router = express.Router()
 const Blog = require("./../models/blog")
+const User = require("./../models/user")
 require('express-async-errors')
 
 router.get("/", async(request, response) => {
-  const blog = await Blog.find({})
+  const blog = await Blog.find({}).populate('user', { username: 1, name: 1 })
   return response.json(blog)
 })
 
@@ -19,14 +20,26 @@ router.post("/", async(request, response) => {
   if (newBody.url === undefined || newBody.url === "") {
     return response.status(400).end()
   }
-  const newBlog = new Blog(newBody)
+  const users = await User.find({})
+  if (!users.length) {
+    return response.status(404).json({ error: "users missing" })
+  }
+  const userRandom = Math.floor(Math.random()*(users.length))
 
+  const newBlog = new Blog({...newBody, user: users[userRandom].id})
   const blog = await newBlog.save()
+  
+  users[userRandom].blogs = users[userRandom].blogs.concat(blog._id)  // add id del blog a users random
+  //const newUser = new User(...users)
+  await users[userRandom].save()
   return response.status(201).json(blog)
 })
 
 router.get("/:id", async (request, response) => {
-  const blog = await Blog.findById(request.params.id)
+  const blog = await Blog.findById(request.params.id).populate("user", {
+    username: 1,
+    name: 1,
+  })
   if (!blog) {
     return response.status(404).end()
   }

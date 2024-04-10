@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 require('express-async-errors')
 
 userRouter.get("/", async (request, response) => {
-  const user = await User.find({})
+  const user = await User.find({}).populate('blogs', { url: 1, titles: 1, author: 1 })
   return response.json(user)
 })
 
@@ -23,4 +23,5 @@ userRouter.post("/", async (request, response) => {
   return response.status(201).json(savedUser)
 })
 
+// TODO: hacer la 4.17
 module.exports = userRouter
