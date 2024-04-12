@@ -1,0 +1,32 @@
+### Añadir otro user
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "mluukkai",
+  "password": "matti"
+}
+
+### Añadir un blog mediante autorización
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI2NjEyNmQ0MmYzZmFhYmUyZGUwNzQyYzUiLCJpYXQiOjE3MTI5NDE5Nzh9.LDAyUkORdBs025QzEiOMiNulMcD1kXOwYh9FOxsGZSU
+
+{
+  "title": "prueba2",
+  "author": "prueba2",
+  "url": "https://prueba.com/es/",
+  "likes": 40
+}
+
+### intentar añadir un blog mediante autorización erronea
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer erJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI2NjEyNmQ0MmYzZmFhYmUyZGUwNzQyYzUiLCJpYXQiOjE3MTI5NDE5Nzh9.LDAyUkORdBs025QzEiOMiNulMcD1kXOwYh9FOxsGZSU
+
+{
+  "title": "prueba2",
+  "author": "prueba2",
+  "url": "https://prueba.com/es/",
+  "likes": 40
+}

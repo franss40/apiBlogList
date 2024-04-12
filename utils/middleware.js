@@ -1,3 +1,4 @@
+const { response } = require('express')
 const logger = require('./loggers')
 
 const requestLogger = (req, res, next) => {
@@ -20,6 +21,9 @@ const errorHandler = (error, req, res, next) => {
   }
   if (error.name === "ValidationError") {
     return res.status(404).json({ error: error.message })
+  }
+  if (error.name === 'JsonWebTokenError') {
+    return res.status(401).json({ error: 'token invalid' })
   }
   return next(error)
 }
