@@ -22,7 +22,7 @@ router.post("/", async(request, response) => {
   let newBody = {...request.body}
 
   // eslint-disable-next-line no-undef
-  const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+  const decodedToken = jwt.verify(request.token, process.env.SECRET)
   if (!decodedToken.id) {
     return response.status(401).json({ error: 'token invalid' })
   }

@@ -1,5 +1,15 @@
-const { response } = require('express')
 const logger = require('./loggers')
+
+const tokenExtractor = (req, res, next) => {
+  const authorization = req.get("authorization")
+  if (authorization && authorization.startsWith("Bearer ")) {
+    authorization.replace("Bearer ", "")
+    req.token = authorization.replace("Bearer ", "")
+  } else {
+    req.token = null
+  }
+  next()
+}
 
 const requestLogger = (req, res, next) => {
   logger.info('Method:', req.method)
@@ -28,4 +38,4 @@ const errorHandler = (error, req, res, next) => {
   return next(error)
 }
 
-module.exports = {requestLogger, unKnowEndPoint, errorHandler}
+module.exports = {requestLogger, unKnowEndPoint, errorHandler, tokenExtractor}
