@@ -5,14 +5,6 @@ const Blog = require("./../models/blog")
 const User = require("./../models/user")
 require('express-async-errors')
 
-const getTokenFrom = request => {
-  const authorization = request.get('authorization')
-  if (authorization && authorization.startsWith('Bearer ')) {
-    return authorization.replace('Bearer ', '')
-  }
-  return null
-}
-
 router.get("/", async(request, response) => {
   const blog = await Blog.find({}).populate('user', { username: 1, name: 1 })
   return response.json(blog)
@@ -59,8 +51,21 @@ router.get("/:id", async (request, response) => {
 })
 
 router.delete("/:id", async (request, response) => {
-  const blog = await Blog.findByIdAndDelete(request.params.id)
-  if (!blog) {
+  // eslint-disable-next-line no-undef
+  const decodedToken = jwt.verify(request.token, process.env.SECRET)
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: "token invalid" })
+  }
+  const blog = await Blog.findById(request.params.id)
+  if (blog.user.toString() !== decodedToken.id) {
+    return response.status(401).json({ error: "Unauthorized" })
+  }
+  const user = await User.findById(decodedToken.id)
+  user.blogs = user.blogs.filter(blog => blog.id !== request.params.id)
+  await user.save()
+
+  const blogToDelete = await Blog.findByIdAndDelete(request.params.id)
+  if (!blogToDelete) {
     return response.status(404).end()
   }
   return response.status(204).end()
