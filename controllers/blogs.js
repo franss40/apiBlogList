@@ -1,24 +1,17 @@
 const express = require("express")
 const router = express.Router()
-const jwt = require('jsonwebtoken')
 const Blog = require("./../models/blog")
-const User = require("./../models/user")
 require('express-async-errors')
+const middleware = require("../utils/middleware")
 
 router.get("/", async(request, response) => {
   const blog = await Blog.find({}).populate('user', { username: 1, name: 1 })
   return response.json(blog)
 })
 
-router.post("/", async(request, response) => {
+router.post("/", middleware.userExtractor, async(request, response) => {
   let newBody = {...request.body}
-
-  // eslint-disable-next-line no-undef
-  const decodedToken = jwt.verify(request.token, process.env.SECRET)
-  if (!decodedToken.id) {
-    return response.status(401).json({ error: 'token invalid' })
-  }
-  const user = await User.findById(decodedToken.id)
+  const user = request.user
 
   if (request.body.likes === undefined) {
     newBody = { ...newBody, likes: 0 }
@@ -50,18 +43,14 @@ router.get("/:id", async (request, response) => {
   return response.json(blog)
 })
 
-router.delete("/:id", async (request, response) => {
-  // eslint-disable-next-line no-undef
-  const decodedToken = jwt.verify(request.token, process.env.SECRET)
-  if (!decodedToken.id) {
-    return response.status(401).json({ error: "token invalid" })
-  }
+router.delete("/:id", middleware.userExtractor, async (request, response) => {
+  const user = request.user
   const blog = await Blog.findById(request.params.id)
-  if (blog.user.toString() !== decodedToken.id) {
+  if (blog.user.toString() !== user.id) {
     return response.status(401).json({ error: "Unauthorized" })
-  }
-  const user = await User.findById(decodedToken.id)
-  user.blogs = user.blogs.filter(blog => blog.id !== request.params.id)
+  }  
+
+  user.blogs = user.blogs.filter((blog) => blog.id !== request.params.id)
   await user.save()
 
   const blogToDelete = await Blog.findByIdAndDelete(request.params.id)

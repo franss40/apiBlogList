@@ -71,8 +71,8 @@ GET http://localhost:3003/api/blogs/a6
 GET http://localhost:3003/api/blogs/55f6b518adb1f83ee8cbc016
 
 ### borrar un blog con una id
-DELETE  http://localhost:3003/api/blogs/66196f876d370c462d07b842
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI2NjEyNmQ0MmYzZmFhYmUyZGUwNzQyYzUiLCJpYXQiOjE3MTI5OTUwODB9.ZWqNVJgHKoqbtmNDAlfgUqgvcfzotH-RDzHy0Kf9C-s
+DELETE  http://localhost:3003/api/blogs/661bb1d57725517f1ebf7fb7
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI2NjEyNmQ0MmYzZmFhYmUyZGUwNzQyYzUiLCJpYXQiOjE3MTMwODUyNzN9.djNiiSx1-lBraT0M3KxZ-XIDDmtcBhYYSjbWPVlIS1Q
 ### actualizar registro
 PUT  http://localhost:3003/api/blogs/65f6b518adb1f83ee8cbc016
 Content-Type: application/json
