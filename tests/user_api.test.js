@@ -11,7 +11,12 @@ beforeEach(async () => {
 
   for (const user of initialUser) {
     const passwordHash = await bcrypt.hash(user.password, 10)
-    const newUser = { username: user.username, name: user.name, passwordHash: passwordHash}
+    const newUser = { 
+      username: user.username, 
+      name: user.name, 
+      passwordHash: passwordHash,
+      blogs: []
+    }
     let userObject = new User(newUser)
     await userObject.save()
   }

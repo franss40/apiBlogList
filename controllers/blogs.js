@@ -46,6 +46,9 @@ router.get("/:id", async (request, response) => {
 router.delete("/:id", middleware.userExtractor, async (request, response) => {
   const user = request.user
   const blog = await Blog.findById(request.params.id)
+  if (!blog) {
+    return response.status(404).end()
+  }
   if (blog.user.toString() !== user.id) {
     return response.status(401).json({ error: "Unauthorized" })
   }  
