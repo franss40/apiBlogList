@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 require('express-async-errors')
 
 userRouter.get("/", async (request, response) => {
-  const user = await User.find({}).populate('blogs', { url: 1, titles: 1, author: 1 })
+  const user = await User.find({}).populate('blogs', { url: 1, title: 1, author: 1 })
   return response.json(user)
 })
 
