@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const Blog = require("./../models/blog")
+const Comment = require("./../models/comment")
 require('express-async-errors')
 const middleware = require("../utils/middleware")
 
@@ -29,6 +30,30 @@ router.post("/", middleware.userExtractor, async(request, response) => {
   user.blogs = user.blogs.concat(blog._id)
 
   await user.save()
+  return response.status(201).json(blog)
+})
+
+router.get('/:id/comments', async (request, response) => {
+  const id = request.params.id
+  const comments = await Comment.find({blog: id})
+  return response.json(comments)
+})
+
+router.post("/:id/comments", async (request, response) => {
+  let {comment} = { ...request.body }
+  const id = request.params.id
+
+  if (id === undefined || id === '') {
+    return response.status(400).end()
+  }
+
+  if (comment === undefined || comment === '') {
+    return response.status(400).end()
+  }
+
+  const newComment = new Comment({ comment, blog: id })
+  const blog = await newComment.save()
+
   return response.status(201).json(blog)
 })
 

@@ -1,5 +1,17 @@
 ### Recuperar todas los blogs
 GET http://localhost:3003/api/blogs
+
+### Obtener comments
+GET http://localhost:3003/api/blogs/6616e529bf2e5f9512694a1d/comments
+
+### Nuevo comment
+POST http://localhost:3003/api/blogs/6616e529bf2e5f9512694a1d/comments
+Content-Type: application/json
+
+{
+  "comment": "this is OK"
+}
+
 ### Añadir un blog
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
@@ -10,6 +22,7 @@ Content-Type: application/json
   "url": "https://www.mongodb.com/atlas",
   "likes": 7
 }
+
 ### Nuevo registro
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
