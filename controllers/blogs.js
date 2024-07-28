@@ -35,7 +35,7 @@ router.post("/", middleware.userExtractor, async(request, response) => {
 
 router.get('/:id/comments', async (request, response) => {
   const id = request.params.id
-  const comments = await Comment.find({blog: id})
+  const comments = await Comment.find({blog: id}).populate('blog', { url: 1, title: 1, author: 1 })
   return response.json(comments)
 })
 
