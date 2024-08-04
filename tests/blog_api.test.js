@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const supertest = require("supertest")
 const app = require("../app")
-const { Blog, User, initialBlog } = require("./test_helpers")
+const { Blog, User, initialBlog, Comment } = require("./test_helpers")
 
 const api = supertest(app)
 
@@ -232,6 +232,30 @@ describe('update of a blog', () => {
     expect(allBlogs.body.length).toBe(allBlogsAfter.body.length)
     expect(allBlogsAfter.body[0].likes).toBe(allBlogs.body[0].likes + 1)
   })
+})
+
+describe('comments', () => {
+  test.only('added comment and get comment', async() => {
+    const response = await api.get('/api/blogs')
+    const blogOne = response.body[0]
+
+    const newComment = { comment: 'One comment', blog: blogOne.id }
+    let commentObject = new Comment(newComment)
+    await commentObject.save()
+
+    const url = `/api/blogs/${blogOne.id}/comments`
+    await api
+      .get(url)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    const responseComment = await api.get(url)
+    expect(responseComment.body).toHaveLength(1)
+    const comment = responseComment.body.map((r) => r.comment)
+
+    expect(comment).toContain('One comment')
+  })
+
 })
 
 afterAll(() => {

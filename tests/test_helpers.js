@@ -1,5 +1,6 @@
 const Blog = require("../models/blog")
 const User = require('../models/user')
+const Comment = require('../models/comment')
 
 const initialBlog = [
   {
@@ -29,4 +30,4 @@ const initialUser = [
   },
 ]
 
-module.exports = {Blog, initialBlog, User, initialUser}
+module.exports = {Blog, initialBlog, User, initialUser, Comment}
