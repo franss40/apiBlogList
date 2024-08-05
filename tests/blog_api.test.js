@@ -235,7 +235,7 @@ describe('update of a blog', () => {
 })
 
 describe('comments', () => {
-  test.only('added comment and get comment', async() => {
+  test('added comment and get comment', async() => {
     const response = await api.get('/api/blogs')
     const blogOne = response.body[0]
 
