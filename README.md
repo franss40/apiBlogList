@@ -1,3 +1,7 @@
+# Blog List
+
+En esta aplicación para poder añadir registros se necesita estar autentíficado con cualquiera de los usuarios indicados más abajo. Estas identificaciones se hacen en el back y tienen un tiempo limitado a traves de tokens.
+
 # Backend
 
 Tecnologías
